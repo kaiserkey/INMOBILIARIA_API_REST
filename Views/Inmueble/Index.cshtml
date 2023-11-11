@@ -1,0 +1,167 @@
+@model IEnumerable<Inmobiliaria.Models.Inmueble>
+
+@{
+    ViewData["Title"] = "Inicio de Inmuebles";
+}
+
+<div class="col-md-12 text-center">
+    <h1>Inmuebles</h1>
+    <span class="input-group-addon" id="lupa" style="cursor:pointer" onclick="abrirModalBuscarInmueble()">
+        <h2><i class="bi bi-search-heart-fill" style="font-size: 1em; color: black;">Buscar Inmuebles</i></h2>
+    </span>
+    <h2><a asp-action="Create"> <i class="bi bi-plus-square-fill" style="font-size: 1em; color: black;"> Nuevo Inmueble
+            </i> </a></h2>
+</div>
+
+<!-- Modal Buscar Inmueble -->
+<div class="modal fade custom-modal" id="modalBuscarInmuebles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered justify-content-center align-items-center" role="document">
+        <div class="modal-content w-auto">
+            <div class="modal-header">
+                <h4 class="modal-title">Buscar Inmuebles</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Buscar por:</label>
+                    <div class="input-group estiloEnLinea">
+                        <select class="form-select optionInmueble" id="buscarInmueblePor">
+                            <option value="Disponibles">Disponimbles</option>
+                            <option value="Propietario">Propietario</option>
+                            <option value="InmuebleNotIn">Inmuebles Sin Contrato</option>
+                        </select>
+                        <div class="optionInputInmueble">
+                            @* aqui van los input segun el select *@
+                        </div>
+                        <div class="input-group-append">
+                            <button id="boton-general" class="btn btn-primary" type="button"
+                                onclick="buscarInmuebles()">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive mw-100">
+                    <table class="table table-striped d-inline-block">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombre del Propietario</th>
+                                <th>Tipo</th>
+                                <th>Direccion</th>
+                                <th>Coordenadas</th>
+                                <th>Precio</th>
+                                <th>Ambientes</th>
+                                <th>Uso</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblInmuebles">
+                            <!-- Aquí van los datos de los Inmuebles... -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="boton-general" onclick="cerrarModalBuscarInmueble()" class="btn btn-primary"
+                        data-dismiss="modal">Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="table-responsive d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped w-auto">
+        <thead id="thead-color">
+            <tr>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.IdInmueble)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Tipo)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Direccion)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Coordenadas)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Precio)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Ambientes)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Uso)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Activo)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.IdPropietario)
+                </th>
+                <th></th>
+                <th></th>
+                @if (User.IsInRole("Administrador"))
+                {
+                    <th></th>
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.IdInmueble)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Coordenadas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ambientes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Uso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Activo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Propietario.Nombre)
+                        @Html.DisplayFor(modelItem => item.Propietario.Apellido)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.IdInmueble })"> <i class="bi bi-pencil-square"
+                                style="font-size: 2em; color: green;"></i> </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", new { id = item.IdInmueble })"> <i class="bi bi-file-text-fill"
+                                style="font-size: 2em; color: orange;"></i> </a>
+                    </td>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <td>
+
+                            <a href="@Url.Action("Delete", new { id = item.IdInmueble })"> <i class="bi bi-trash3-fill"
+                                    style="font-size: 2em; color: red;"></i> </a>
+
+
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

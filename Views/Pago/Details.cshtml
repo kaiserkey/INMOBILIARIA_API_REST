@@ -1,0 +1,66 @@
+@model Inmobiliaria.Models.Pago
+
+@{
+    ViewData["Title"] = "Detalles de Pago";
+    var Pago = Model;
+}
+
+<div id="contenedor-vista-previa" class="table-responsive d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped w-auto">
+        <thead id="thead-color">
+            <tr>
+                <th class="col">
+                    <h2><a asp-action="Index"><i class="bi bi-arrow-return-left"
+                                style="font-size: 1em; color: black;">Regresar</i></a></h2>
+                </th>
+                <th class="col">
+                    <h2><a href="@Url.Action("Edit", new { id = Pago.IdPago  })"> <i class="bi bi-pencil-square"
+                                style="font-size: 1em; color: green;">Editar</i> </a></h2>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr >
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.IdPago)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.IdPago)
+                </td>
+                </td>
+            <tr >
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.Fecha)
+                </td>
+            </tr>
+            <tr >
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Importe)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.Importe)
+                </td>
+            </tr>
+            <tr >
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.NumeroPago)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.NumeroPago)
+                </td>
+            </tr>
+            <tr >
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.IdContrato)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.IdContrato)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

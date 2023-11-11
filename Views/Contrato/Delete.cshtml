@@ -1,0 +1,70 @@
+@model Inmobiliaria.Models.Contrato
+
+@{
+    ViewData["Title"] = "Eliminar Contrato";
+    var Contrato = Model;
+}
+
+<div id="contenedor-vista-previa" class="table-responsive d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped w-auto">
+        <tr>
+            <th class="col" colspan="2">
+                <h2><a asp-action="Index"><i class="bi bi-arrow-return-left"
+                            style="font-size: 1em; color: black;">Regresar</i></a></h2>
+                <h2><a href="@Url.Action("Edit", new { id = Contrato.IdContrato  })"> <i class="bi bi-pencil-square"
+                            style="font-size: 1em; color: green;">Editar</i> </a></h2>
+            </th>
+        </tr>
+        <tr>
+            <td class = "col-sm-4 fila-nombre">
+                @Html.DisplayNameFor(model => model.IdContrato)
+            </td>
+            <td class = "col-sm-8">
+                @Html.DisplayFor(model => model.IdContrato)
+            </td>
+        </tr>
+        <tr>
+            <td class = "col-sm-4 fila-nombre">
+                @Html.DisplayNameFor(model => model.IdInmueble)
+            </td>
+            <td class = "col-sm-8">
+                @Html.DisplayFor(model => model.IdInmueble)
+            </td>
+        </tr>
+        <tr>
+            <td class = "col-sm-4 fila-nombre">
+                @Html.DisplayNameFor(model => model.IdInquilino)
+            </td>
+            <td class = "col-sm-8">
+                @Html.DisplayFor(model => model.Inquilino.Nombre)
+                @Html.DisplayFor(model => model.Inquilino.Apellido)
+            </td>
+        </tr>
+        <tr>
+            <td class = "col-sm-4 fila-nombre">
+                @Html.DisplayNameFor(model => model.FechaInicio)
+            </td>
+            <td class = "col-sm-8">
+                @Html.DisplayFor(model => model.FechaInicio)
+            </td>
+        </tr>
+        <tr>
+            <td class = "col-sm-4 fila-nombre">
+                @Html.DisplayNameFor(model => model.FechaFin)
+            </td>
+            <td class = "col-sm-8">
+                @Html.DisplayFor(model => model.FechaFin)
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <h2 id="eliminar-mensaje">Estas seguro de que deseas eliminar este elemento?</h2>
+                <form asp-action="Delete">
+                    <input id="boton-general" type="submit" value="Delete" class="btn btn-info btn-block" />
+                </form>
+            </td>
+        </tr>
+
+    </table>
+</div>

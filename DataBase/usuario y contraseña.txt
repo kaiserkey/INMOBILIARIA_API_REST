@@ -1,0 +1,13 @@
+PARA APIREST ANDROID STUDIO
+Usuario: lauragarcia@mail.com
+Password: 123
+
+
+PARA WEB
+Administrador
+Usuario: kaiserkey2@gmail.com
+Password: 123
+
+Empleado
+Usuario: josevizcay@gmail.com
+Password: 123

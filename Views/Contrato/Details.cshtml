@@ -1,0 +1,83 @@
+@model Inmobiliaria.Models.Contrato
+
+@{
+    ViewData["Title"] = "Detalles del Contrato";
+    var Contrato = Model;
+}
+
+<div id="contenedor-vista-previa" class="table-responsive d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped w-auto">
+        <thead id="thead-color">
+            <tr>
+                <th class="col">
+                    <h2><a asp-action="Index"><i class="bi bi-arrow-return-left"
+                                style="font-size: 1em; color: black;">Regresar</i></a></h2>
+                </th>
+                <th class="col">
+                    <h2><a href="@Url.Action("Edit", new { id = Contrato.IdContrato  })"> <i class="bi bi-pencil-square"
+                                style="font-size: 1em; color: green;">Editar</i> </a></h2>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.IdContrato)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.IdContrato)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.IdInmueble)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.IdInmueble)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.IdInquilino)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.Inquilino.Nombre)
+                    @Html.DisplayFor(model => model.Inquilino.Apellido)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.FechaInicio)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.FechaInicio)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.FechaFin)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.FechaFin)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.MontoAlquilerMensual)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.MontoAlquilerMensual)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Activo)
+                </td>
+                <td >
+                    @Html.DisplayFor(model => model.Activo)
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>

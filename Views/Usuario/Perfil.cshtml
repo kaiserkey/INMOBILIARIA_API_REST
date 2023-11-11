@@ -1,0 +1,83 @@
+@model Inmobiliaria.Models.Usuario
+
+@{
+    ViewData["Title"] = "Mi Perfil";
+    var Usuario = Model;
+}
+
+<div id="contenedor-perfil" class="container d-flex justify-content-center align-items-center">
+    <div id="contenedor-table" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+        <div class="panel panel-info">
+            <div class="panel-heading text-center">
+                <h3 class="panel-title"> @Html.DisplayFor(model => model.Nombre) @Html.DisplayFor(model =>
+                    model.Apellido)
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-4 col-lg-4 " align="center">
+
+                        @if (Model.Avatar != "")
+                        {
+                            <img src="@Model.Avatar" alt="Avatar" style="width: 100px; heigh:130px;"
+                                class="img-thumbnail rounded-circle img-responsive">
+                        }
+                        else
+                        {
+                            <img src="/img/default.webp" alt="Avatar" style="width: 100px; heigh:130px;"
+                                class="img-thumbnail rounded-circle img-responsive">
+                        }
+
+                    </div>
+                    <div class=" col-md-8 col-lg-8 ">
+                        <table class="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td class="fila-nombre">
+                                        @Html.DisplayNameFor(model => model.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Email)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fila-nombre">
+                                        @Html.DisplayNameFor(model => model.Rol)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.RolNombre)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fila-nombre">
+                                        @Html.DisplayNameFor(model => model.Dni)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Dni)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fila-nombre">
+                                        @Html.DisplayNameFor(model => model.Telefono)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Telefono)
+                                    </td>
+                                </tr>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer text-center">
+                <form asp-action="EditarPerfil" method="GET">
+                    <input id="boton-general" type="submit" value="Editar Perfil" class="btn btn-info btn-block" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

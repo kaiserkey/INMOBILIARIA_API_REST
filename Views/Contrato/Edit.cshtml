@@ -1,0 +1,172 @@
+@model Inmobiliaria.Models.Contrato
+
+@{
+    ViewData["Title"] = "Editar Contrato";
+}
+
+<div id="nuevo-container" class="container d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Edit" method="POST" class="text-center border border-light p-5">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <a asp-action="Index">
+                    <i class="bi bi-arrow-return-left" style="font-size: 2em; color: black;"></i>
+                </a>
+
+                <div class="form-group">
+                    <input type="hidden" asp-for="IdContrato" />
+                </div>
+
+                <!-- Inmueble text input -->
+                <div class="form-group">
+                    <label asp-for="IdInmueble" class="control-label"></label>
+                    <div class="input-group">
+                        <input asp-for="IdInmueble" class="form-control" id="IdInmueble" />
+                        <span class="input-group-addon" id="lupa" style="cursor:pointer" onclick="abrirModalInmueble()">
+                            <i class="bi bi-search-heart-fill" style="font-size: 1.5em; color: #8a5a41;"></i>
+                        </span>
+                        <span asp-validation-for="IdInmueble" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Modal Buscar Inmueble -->
+                <div class="modal fade" id="modalBuscarInmuebles" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-dialog-centered justify-content-center align-items-center"
+                        role="document">
+                        <div class="modal-content w-auto">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Buscar Inmuebles</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Buscar por:</label>
+                                    <div class="input-group">
+                                        <select class="form-select" id="buscarInmueblePor">
+                                            <option value="Tipo">Tipo</option>
+                                            <option value="Coordenadas">Coordenadas</option>
+                                            <option value="Precio">Precio</option>
+                                            <option value="Ambientes">Ambientes</option>
+                                            <option value="Uso">Uso</option>
+                                        </select>
+                                        <input type="text" id="txtBuscar" class="form-control" />
+                                        <div class="input-group-append">
+                                            <button id="boton-general" class="btn btn-primary" type="button"
+                                                onclick="buscarInmueble()">Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mw-100">
+                                    <table class="table table-striped d-inline-block">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Tipo</th>
+                                                <th>Coordenadas</th>
+                                                <th>Precio</th>
+                                                <th>Ambientes</th>
+                                                <th>Uso</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblInmuebles">
+                                            <!-- Aquí van los datos de los Inmuebles... -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="boton-general" onclick="cerrarModalInmueble()"
+                                        class="btn btn-primary" data-dismiss="modal">Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Inquilino text input -->
+                <div class="form-group">
+                    <label asp-for="IdInquilino" class="control-label"></label>
+                    <div class="input-group">
+                        <input asp-for="IdInquilino" class="form-control" id="IdInquilino" />
+                        <span class="input-group-addon" id="lupa" style="cursor:pointer"
+                            onclick="abrirModalInquilino()">
+                            <i class="bi bi-search-heart-fill" style="font-size: 1.5em; color: #8a5a41;"></i>
+                        </span>
+                        <span asp-validation-for="IdInquilino" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Modal Buscar Inquilino -->
+                <div class="modal fade" id="modalBuscarInquilinos" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-dialog-centered justify-content-center align-items-center"
+                        role="document">
+                        <div class="modal-content w-auto">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Buscar Inquilinos</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Ingresa un nombre y apellido para buscar</label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtBuscar" class="form-control" />
+                                        <div class="input-group-append">
+                                            <button id="boton-general" class="btn btn-primary" type="button"
+                                                onclick="buscarInquilino()">Buscar</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="table-responsive mw-100">
+                                    <table class="table table-striped d-inline-block">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido</th>
+                                                <th>Telefono</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblInquilinos">
+                                            <!-- Aquí van los datos del Inquilinos... -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="boton-general" onclick="cerrarModalInquilino()"
+                                        class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaInicio" class="control-label"></label>
+                    <input asp-for="FechaInicio" class="form-control" />
+                    <span asp-validation-for="FechaInicio" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaFin" class="control-label"></label>
+                    <input asp-for="FechaFin" class="form-control" />
+                    <span asp-validation-for="FechaFin" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MontoAlquilerMensual" class="control-label"></label>
+                    <input asp-for="MontoAlquilerMensual" class="form-control" />
+                    <span asp-validation-for="MontoAlquilerMensual" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input id="boton-general" type="submit" value="Actualizar" class="btn btn-info btn-block" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

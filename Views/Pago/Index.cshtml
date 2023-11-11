@@ -1,0 +1,133 @@
+@model IEnumerable<Inmobiliaria.Models.Pago>
+
+@{
+    ViewData["Title"] = "Inicio de Pago";
+}
+
+<div class="col-md-12 text-center">
+    <h1>Pagos</h1>
+    <span class="input-group-addon" id="lupa" style="cursor:pointer" onclick="abrirModalBuscarPago()">
+        <h2><i class="bi bi-search-heart-fill" style="font-size: 1em; color: black;">Buscar Pagos</i></h2>
+    </span>
+    <h2><a asp-action="Create"> <i class="bi bi-plus-square-fill" style="font-size: 1em; color: black;"> Nuevo Pago </i>
+        </a></h2>
+</div>
+
+<!-- Modal Buscar Contrato -->
+<div class="modal fade custom-modal" id="modalBuscarPago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered justify-content-center align-items-center" role="document">
+        <div class="modal-content w-auto">
+            <div class="modal-header">
+                <h4 class="modal-title">Buscar Contratos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Buscar por:</label>
+                    <div class="input-group estiloEnLinea">
+                        <select class="form-select">
+                            <option value="Fecha">Pagos Por Contrato</option>
+                        </select>
+                        <input type="number" id="txtBuscar" class="form-control" placeholder="Codigo Contrato" />
+                        <div class="input-group-append">
+                            <button id="boton-general" class="btn btn-primary" type="button"
+                                onclick="buscarPagos()">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive mw-100">
+                    <table class="table table-striped d-inline-block">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Fecha</th>
+                                <th>Importe</th>
+                                <th>Codigo de Contrato</th>
+                                <th>Numero de Pago</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblPagos">
+                            <!-- Aquí van los datos de los Contrato... -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="boton-general" onclick="cerrarModalPago()" class="btn btn-primary"
+                        data-dismiss="modal">Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped w-auto">
+        <thead id="thead-color">
+            <tr>
+                <th class="col text-center">
+                    @Html.DisplayNameFor(model => model.IdPago)
+                </th>
+                <th class="col text-center">
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th class="col text-center">
+                    @Html.DisplayNameFor(model => model.Importe)
+                </th>
+                <th class="col text-center">
+                    @Html.DisplayNameFor(model => model.NumeroPago)
+                </th>
+                <th class="col text-center">
+                    @Html.DisplayNameFor(model => model.IdContrato)
+                </th>
+                <th></th>
+                <th></th>
+                @if (User.IsInRole("Administrador"))
+                {
+                    <th></th>
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.IdPago)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Importe)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.NumeroPago)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.IdContrato)
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.IdPago"> <i class="bi bi-pencil-square"
+                                style="font-size: 2em; color: green;"></i> </a>
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Details" asp-route-id="@item.IdPago"> <i class="bi bi-file-text-fill"
+                                style="font-size: 2em; color: orange;"></i> </a>
+                    </td>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <td class="text-center">
+
+                            <a asp-action="Delete" asp-route-id="@item.IdPago"> <i class="bi bi-trash3-fill"
+                                    style="font-size: 2em; color: red;"></i> </a>
+
+
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

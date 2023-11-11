@@ -1,0 +1,173 @@
+@model IEnumerable<Inmobiliaria.Models.Contrato>
+
+@{
+    ViewData["Title"] = "Inicio Contrato";
+}
+
+<div class="col-md-12 text-center">
+    <h1>Contrato</h1>
+    <span class="input-group-addon" id="lupa" style="cursor:pointer" onclick="abrirModalBuscarContratos()">
+        <h2><i class="bi bi-search-heart-fill" style="font-size: 1em; color: black;">Buscar Contratos</i></h2>
+    </span>
+    <h2><a asp-action="Create"> <i class="bi bi-plus-square-fill" style="font-size: 1em; color: black;"> Nuevo Contrato
+            </i> </a></h2>
+</div>
+
+<!-- Modal Buscar Contrato -->
+<div class="modal fade custom-modal" id="modalBuscarContrato" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered justify-content-center align-items-center" role="document">
+        <div class="modal-content w-auto">
+            <div class="modal-header">
+                <h4 class="modal-title">Buscar Contratos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Buscar por:</label>
+                    <div class="input-group estiloEnLinea">
+                        <select class="form-select optionContrato" id="buscarContratoPor">
+                            <option value="Fecha">Fecha [DESDE/HASTA]</option>
+                            <option value="Inmueble">Inmueble Asociado</option>
+                        </select>
+                        <div class="optionInputContrato">
+                            @* aqui van los input segun el select *@
+                        </div>
+                        <div class="input-group-append">
+                            <button id="boton-general" class="btn btn-primary" type="button"
+                                onclick="buscarContratosPor()">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive mw-100">
+                    <table class="table table-striped d-inline-block">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Codigo Inmueble</th>
+                                <th>Inquilino</th>
+                                <th>DNI</th>
+                                <th>Fecha de Inicio</th>
+                                <th>Fecha de Finalizacion</th>
+                                <th>Monto Mensual del Alquiler</th>
+                                <th>Activo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblContrato">
+                            <!-- Aquí van los datos de los Contrato... -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="boton-general" onclick="cerrarModalContrato()" class="btn btn-primary"
+                        data-dismiss="modal">Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="table-responsive d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped w-auto">
+        <thead id="thead-color">
+            <tr>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.IdContrato)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.IdInmueble)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.IdInquilino)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.FechaInicio)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.FechaFin)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.MontoAlquilerMensual)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Activo)
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                @if (User.IsInRole("Administrador"))
+                {
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.IdContrato)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdInmueble)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Inquilino.Nombre)
+                        @Html.DisplayFor(modelItem => item.Inquilino.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaInicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaFin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MontoAlquilerMensual)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Activo)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.IdContrato })"> <i class="bi bi-pencil-square"
+                                style="font-size: 2em; color: green;"></i> </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Renovar", new { id = item.IdContrato })"> <i class="bi bi-hourglass-top"
+                                style="font-size: 2em; color: lightgreen;"></i> </a>
+                    </td>
+                    @if (item.FechaFin > DateTime.Now)
+                    {
+                        <td>
+                            <button id="button-cancel" onclick="confirmarCancelar(@item.IdContrato)"> <i class="bi bi-x-circle-fill"
+                                style="font-size: 2em; color: brown;"></i> </button>
+                        </td>
+                    }else{
+                        <td>
+                            --
+                        </td>
+                    }
+                    <td>
+                        <a href="@Url.Action("Details", new { id = item.IdContrato })"> <i class="bi bi-file-text-fill"
+                                style="font-size: 2em; color: orange;"></i> </a>
+                    </td>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <td>
+                            <a href="@Url.Action("Delete", new { id = item.IdContrato })"> <i class="bi bi-trash3-fill"
+                                    style="font-size: 2em; color: red;"></i> </a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function confirmarCancelar(idContrato) {
+        if (confirm('¿Está seguro de cancelar el contrato?')) {
+            window.location.href = "@Url.Action("Cancelar", new { id = "__id__" })".replace('__id__', idContrato);
+        }
+    }
+</script>

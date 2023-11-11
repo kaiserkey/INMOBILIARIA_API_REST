@@ -1,0 +1,98 @@
+@model Inmobiliaria.Models.Usuario
+
+@{
+    ViewData["Title"] = "Detalle de Usuario";
+    var Usuario = Model;
+}
+
+<div id="contenedor-vista-previa" class="table-responsive d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped w-auto">
+        <thead id="thead-color">
+            <tr>
+                <th class="col">
+                    <h2><a asp-action="Index"><i class="bi bi-arrow-return-left"
+                                style="font-size: 1em; color: black;">Regresar</i></a></h2>
+                </th>
+                <th class="col">
+                    <h2><a href="@Url.Action("Edit", new { id = Usuario.IdUsuario  })"> <i class="bi bi-pencil-square"
+                                style="font-size: 1em; color: green;">Editar</i> </a></h2>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Avatar)
+                </td>
+                <td>
+                    @if (Model.Avatar != "")
+                    {
+                        <img src="@Model.Avatar" alt="Avatar" style="width: 45px; height:45px;"
+                            class="img-thumbnail rounded-circle">
+                    }
+                    else
+                    {
+                        <img src="/img/default.webp" alt="Avatar" style="width: 45px; height:45px;"
+                            class="img-thumbnail rounded-circle">
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.IdUsuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.IdUsuario)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Nombre)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Apellido)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Email)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Dni)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Dni)
+                </td>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Telefono)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Rol)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.RolNombre)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

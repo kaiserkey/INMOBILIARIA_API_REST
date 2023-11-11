@@ -1,0 +1,98 @@
+@model Inmobiliaria.Models.Inmueble
+
+@{
+    ViewData["Title"] = "Detalle de Inmueble";
+    var Inmueble = Model;
+}
+
+<div id="contenedor-vista-previa" class="table-responsive d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped w-auto">
+        <thead id="thead-color">
+            <tr>
+                <th class="col">
+                    <h2><a asp-action="Index"><i class="bi bi-arrow-return-left"
+                                style="font-size: 1em; color: black;">Regresar</i></a></h2>
+                </th>
+                <th class="col">
+                    <h2><a href="@Url.Action("Edit", new { id = Inmueble.IdInmueble  })"> <i class="bi bi-pencil-square"
+                                style="font-size: 1em; color: green;">Editar</i> </a></h2>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.IdInmueble)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.IdInmueble)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Tipo)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Direccion)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Coordenadas)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Coordenadas)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Precio)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Ambientes)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Ambientes)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Uso)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Uso)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.Activo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Activo)
+                </td>
+            </tr>
+            <tr>
+                <td class="fila-nombre">
+                    @Html.DisplayNameFor(model => model.IdPropietario)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Propietario.Nombre)
+                    @Html.DisplayFor(model => model.Propietario.Apellido)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

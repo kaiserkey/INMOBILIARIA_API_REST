@@ -1,0 +1,93 @@
+@model IEnumerable<Inmobiliaria.Models.Inquilino>
+
+@{
+    ViewData["Title"] = "Inicio de Inquilino";
+}
+
+<div class="col-md-12 text-center">
+    <h1>Inquilino</h1>
+    <h2><a asp-action="Create"> <i class="bi bi-plus-square-fill" style="font-size: 1em; color: black;"> Nuevo Inquilino
+            </i> </a></h2>
+</div>
+<div class="table-responsive d-flex justify-content-center align-items-center">
+    <table class="table table-bordered table-striped w-auto">
+        <thead id="thead-color">
+            <tr>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.IdInquilino)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.FechaNacimiento)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Dni)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
+                <th class="col email">
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th></th>
+                <th></th>
+                @if (User.IsInRole("Administrador"))
+                {
+                    <th></th>
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.IdInquilino)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dni)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td class="email">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.IdInquilino })"> <i class="bi bi-pencil-square"
+                                style="font-size: 2em; color: green;"></i> </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", new { id = item.IdInquilino })"> <i class="bi bi-file-text-fill"
+                                style="font-size: 2em; color: orange;"></i> </a>
+                    </td>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <td>
+
+                            <a href="@Url.Action("Delete", new { id = item.IdInquilino })"> <i class="bi bi-trash3-fill"
+                                    style="font-size: 2em; color: red;"></i> </a>
+
+
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

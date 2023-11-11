@@ -1,0 +1,100 @@
+@model Inmobiliaria.Models.Pago
+
+@{
+    ViewData["Title"] = "Nuevo Pago";
+}
+
+<div id="nuevo-container" class="container d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-md-12">            
+            <form asp-action="Create" class="text-center border border-light p-5" method="POST">
+                <a asp-action="Index">
+                    <i class="bi bi-arrow-return-left" style="font-size: 2em; color: black;"></i>
+                </a>
+                <p class="h3 mb-4">Crear Nuevo Pago</p>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Fecha" class="control-label"></label>
+                    <input asp-for="Fecha" class="form-control" />
+                    <span asp-validation-for="Fecha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Importe" class="control-label"></label>
+                    <input asp-for="Importe" class="form-control" />
+                    <span asp-validation-for="Importe" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NumeroPago" class="control-label"></label>
+                    <input asp-for="NumeroPago" class="form-control" />
+                    <span asp-validation-for="NumeroPago" class="text-danger"></span>
+                </div>
+                <!-- Contrato text input -->
+                <div class="form-group">
+                    <label asp-for="IdContrato" class="control-label"></label>
+                    <div class="input-group">
+                        <input asp-for="IdContrato" class="form-control" id="IdContrato" />
+                        <span class="input-group-addon" id="lupa" style="cursor:pointer" onclick="abrirModalContrato()">
+                            <i class="bi bi-search-heart-fill" style="font-size: 1.5em; color: #8a5a41;"></i>
+                        </span>
+                        <span asp-validation-for="IdContrato" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Modal Buscar Contrato -->
+                <div class="modal fade" id="modalBuscarContrato" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-dialog-centered justify-content-center align-items-center"
+                        role="document">
+                        <div class="modal-content w-auto">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Buscar Contrato</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Buscar por:</label>
+                                    <div class="input-group">
+                                        <select class="form-select" id="buscarContratoPor">
+                                            <option value="Inquilino">Inquilino</option>
+                                            <option value="FechaInicio">Fecha de Inicio</option>
+                                            <option value="FechaFin">Fecha de Finalizacion</option>
+                                        </select>
+                                        <input type="text" id="txtBuscar" class="form-control" />
+                                        <div class="input-group-append">
+                                            <button id="boton-general" class="btn btn-primary" type="button"
+                                                onclick="buscarContratos()">Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mw-100">
+                                    <table class="table table-striped d-inline-block">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Codigo Inmueble</th>
+                                                <th>Inquilino</th>
+                                                <th>DNI</th>
+                                                <th>Fecha de Inicio</th>
+                                                <th>Fecha de Finalizacion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblContrato">
+                                            <!-- Aquí van los datos de los Contrato... -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="boton-general" onclick="cerrarModalContrato()"
+                                        class="btn btn-primary" data-dismiss="modal">Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input id="boton-general" type="submit" value="Create" class="btn btn-info btn-block" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

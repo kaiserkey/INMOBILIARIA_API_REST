@@ -1,0 +1,115 @@
+@model Inmobiliaria.Models.Inmueble
+
+@{
+    ViewData["Title"] = "Editar Inmueble";
+}
+
+<div id="nuevo-container" class="container d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Edit" method="POST" class="text-center border border-light p-5">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <a asp-action="Index">
+                    <i class="bi bi-arrow-return-left" style="font-size: 2em; color: black;"></i>
+                </a>
+                <p class="h3 mb-4">Editar Inmueble</p>
+                <div class="form-group">
+                    <input type="hidden" asp-for="IdInmueble" class="form-control" />
+                    <span asp-validation-for="IdInmueble" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tipo" class="control-label"></label>
+                    <input asp-for="Tipo" class="form-control" />
+                    <span asp-validation-for="Tipo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Direccion" class="control-label"></label>
+                    <input asp-for="Direccion" class="form-control" />
+                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Coordenadas" class="control-label"></label>
+                    <input asp-for="Coordenadas" class="form-control" />
+                    <span asp-validation-for="Coordenadas" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Precio" class="control-label"></label>
+                    <input asp-for="Precio" class="form-control" />
+                    <span asp-validation-for="Precio" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ambientes" class="control-label"></label>
+                    <input asp-for="Ambientes" class="form-control" />
+                    <span asp-validation-for="Ambientes" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Uso" class="control-label"></label>
+                    <select asp-for="Uso" class="form-control">
+                        <option value="">Selecciona una opción</option>
+                        <option value="comercial">Comercial</option>
+                        <option value="residencial">Residencial</option>
+                    </select>
+                    <span asp-validation-for="Uso" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
+                    </label>
+                </div>
+                <!-- Propietario text input -->
+                <div class="form-group">
+                    <label asp-for="IdPropietario" class="control-label"></label>
+                    <div class="input-group">
+                        <input asp-for="IdPropietario" class="form-control" id="IdPropietario" />
+                        <span class="input-group-addon" id="lupa" style="cursor:pointer" onclick="abrirModal()">
+                            <i class="bi bi-search-heart-fill" style="font-size: 1.5em; color: #8a5a41;"></i>
+                        </span>
+                        <span asp-validation-for="IdPropietario" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Modal Buscar Propietarios -->
+                <div class="modal fade" id="modalBuscarPropietarios" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-dialog-centered justify-content-center align-items-center"
+                        role="document">
+                        <div class="modal-content w-auto">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Buscar Propietario</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Ingresa un nombre y apellido para buscar</label>
+                                    <input type="text" id="txtBuscar" class="form-control" />
+                                </div>
+                                <div class="table-responsive mw-100">
+                                    <table class="table table-striped d-inline-block">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido</th>
+                                                <th>Telefono</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblPropietarios">
+                                            <!-- Aquí van los datos del propietario... -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="boton-general" onclick="cerrarModal()"
+                                        class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input id="boton-general" type="submit" value="Actualizar" class="btn btn-info btn-block" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
